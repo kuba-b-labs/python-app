@@ -1,0 +1,12 @@
+[project]
+name = "python-app"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "asyncio>=3.4.3",
+    "asyncpg>=0.30.0",
+    "dotenv>=0.9.9",
+    "fastapi[standard]>=0.115.14",
+]
