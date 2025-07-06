@@ -1,0 +1,25 @@
+name: Build docker image
+
+on:
+  push:
+    paths:
+      - "app/**"
+
+jobs:
+  Login-To-Docker-Container-Images:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4 
+      
+      - name: Log in to docker image
+        run: |
+          docker login -U ${{ docker_login }} -P ${{ docker_personal_access_token }}
+      
+      - name: Build docker image
+        run: docker build -t ${{ docker_login }}/fastapi-weight:latest
+      
+      - name: Push docker image
+        run: docker push ${{ docker_login }}/fastapi-weight:latest
+
+
