@@ -14,12 +14,12 @@ jobs:
       
       - name: Log in to docker image
         run: |
-          docker login -U ${{ docker_login }} -P ${{ docker_personal_access_token }}
+          docker login -U ${{ secrets.docker_login }} -P ${{ secrets.docker_personal_access_token }}
       
       - name: Build docker image
-        run: docker build -t ${{ docker_login }}/fastapi-weight:latest
+        run: docker build -t ${{ secrets.docker_login }}/fastapi-weight:latest
       
       - name: Push docker image
-        run: docker push ${{ docker_login }}/fastapi-weight:latest
+        run: docker push ${{ secrets.docker_login }}/fastapi-weight:latest
 
 
