@@ -8,6 +8,10 @@ from pydantic import BaseModel, Field
 
 load_dotenv()
 
+DATABASE_URL = getenv("DATABASE_URL")
+if not DATABASE_URL:
+    raise ValueError("DATABASE_URL environment variable is missing")
+
 logger = logging.getLogger(__name__)
 logging.basicConfig(
     level=logging.INFO    
