@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Request, Response, HTTPException
 from ..database.database import postgresDB, Entry
+from typing import Annotated
 from datetime import date
 
 router = APIRouter()
@@ -36,11 +37,11 @@ async def get_entry(date : date):
     return entries
 
 @router.put("/entry/")
-async def update_entry(entry : Entry):
-    """Update database entry"""
+async def update_entry(entry : Entry, q : bool = 0):
+    """Update database calorie intake entry"""
     async with postgresDB() as db:
         try:
-            await db.update_entry(entry)
+            await db.update_entry(entry, q)
         except Exception as error:
             raise HTTPException(detail=f'Entry failed to update: {error}',status_code=500)
     return { "status" : "Entry updated successfully" }

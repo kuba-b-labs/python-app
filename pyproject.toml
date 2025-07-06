@@ -9,4 +9,5 @@ dependencies = [
     "asyncpg>=0.30.0",
     "dotenv>=0.9.9",
     "fastapi[standard]>=0.115.14",
+    "prometheus-fastapi-instrumentator>=7.1.0",
 ]

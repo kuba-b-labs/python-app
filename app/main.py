@@ -1,15 +1,17 @@
 from fastapi import FastAPI
 from app.routers.router import router
+from prometheus_fastapi_instrumentator import Instrumentator
+
 
 app = FastAPI()
 
-app.include_router(router)
+Instrumentator().instrument(app).expose(app)
 
+# Rejestracja routera
+app.include_router(router)
 
 @app.get("/health")
 def health():
     """Check if API is healthy"""
-    #TO DO - add database connection check
-    return { "status" : "ok" }
-
+    return {"status": "ok"}
 

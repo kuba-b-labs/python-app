@@ -10,6 +10,7 @@ load_dotenv()
 
 class Entry(BaseModel):
     weight : float
+    calorie_intake: int | None = None
     input_date : date | None = None
 
 class postgresDB():
@@ -68,9 +69,9 @@ class postgresDB():
         async with self.pool.acquire() as con:
             if entry.input_date is None:
                 entry.input_date = date.today()
-            ask_query = """INSERT INTO ENTRIES(WEIGHT,DATE) VALUES ($1, $2)"""
+            ask_query = """INSERT INTO ENTRIES(WEIGHT,DATE, CALORIE_INTAKE) VALUES ($1, $2, $3)"""
             try:
-                await con.execute(ask_query, entry.weight, entry.input_date)
+                await con.execute(ask_query, entry.weight, entry.input_date, entry.calorie_intake)
                 logging.info("Create entry query executed")
             except Exception as error:
                 logging.error(error)
@@ -90,17 +91,25 @@ class postgresDB():
                 return f'Entry successfully deleted'
             return f'Entry not found in database'
             
-    async def update_entry(self, entry_to_update : Entry):
+    async def update_entry(self, entry_to_update : Entry, q : bool):
         """UPDATE SPECIFIC ENTRY"""
         async with self.pool.acquire() as con:
             check_if_exist = await self.get_entries(entry_to_update.input_date)
             if check_if_exist:
-                update_query = """UPDATE ENTRIES SET WEIGHT = $1 WHERE DATE = $2;"""
-                try:
-                    await con.execute(update_query, entry_to_update.weight, entry_to_update.input_date)
-                    logging.info("Update query executed")
-                except Exception as error:
-                    logging.error(error)
+                if q:
+                    update_query = """UPDATE ENTRIES SET WEIGHT = $1 WHERE DATE = $2;"""
+                    try:
+                        await con.execute(update_query, entry_to_update.weight, entry_to_update.input_date)
+                        logging.info("Update query executed")
+                    except Exception as error:
+                        logging.error(error)
+                else:
+                    update_query = """UPDATE ENTRIES SET CALORIE_INTAKE = $1 WHERE DATE = $2;"""
+                    try:
+                        await con.execute(update_query, entry_to_update.calorie_intake, entry_to_update.input_date)
+                        logging.info("Update query executed")
+                    except Exception as error:
+                        logging.error(error)
                 return f'Entry successfully updated'
             return f'Entry not found in database'
 
