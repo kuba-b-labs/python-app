@@ -17,7 +17,7 @@ jobs:
           docker login -u ${{ secrets.docker_login }} -p ${{ secrets.docker_personal_access_token }}
       
       - name: Build docker image
-        run: docker build -t ${{ secrets.docker_login }}/fastapi-weight:latest
+        run: docker build -t ${{ secrets.docker_login }}/fastapi-weight:latest .
       
       - name: Push docker image
         run: docker push ${{ secrets.docker_login }}/fastapi-weight:latest
