@@ -1,9 +1,11 @@
 from fastapi import FastAPI
 from app.routers.router import router
 from prometheus_fastapi_instrumentator import Instrumentator
-
+import logging
 
 app = FastAPI()
+
+
 
 Instrumentator().instrument(app).expose(app)
 

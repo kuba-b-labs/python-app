@@ -8,6 +8,11 @@ from pydantic import BaseModel, Field
 
 load_dotenv()
 
+logger = logging.getLogger(__name__)
+logging.basicConfig(
+    level=logging.INFO    
+    )
+
 class Entry(BaseModel):
     weight : float
     calorie_intake: int | None = None
@@ -19,13 +24,13 @@ class postgresDB():
     async def __aenter__(self):
         """OPEN CONNECTION TO DATABASE"""
         self.pool = await asyncpg.create_pool(getenv("DATABASE_URL"))
-        logging.info("database connection established")
+        logger.info("database connection established")
         return self #must return self so async with block assigns the instance
     
     async def __aexit__(self,exc_type, exc_value, traceback):
         """CLOSE CONNECTION TO DATABASE"""
         await self.pool.close()
-        logging.info("database connection closed")
+        logger.info("database connection closed")
 
     def convert_to_datetime(self, query_date):
         query_date = datetime.strptime(query_date, "%Y-%m-%d").date()
@@ -43,18 +48,18 @@ class postgresDB():
                     ;""" 
                 try:
                     db_rows = await con.fetch(ask_query,query_date)
-                    logging.info("Query 'get all entries' executed")
+                    logger.info("Query 'get all entries' executed correctly")
                 except Exception as error:
-                    logging.error(error)
+                    logger.error(error)
             else:
                 ask_query = """
                     SELECT * FROM entries;
                 """
                 try:
                     db_rows = await con.fetch(ask_query)
-                    logging.info("Query 'get entry' executed")
+                    logger.info("Query 'get entry' executed correctly")
                 except Exception as error:
-                    logging.error(error)
+                    logger.error(error)
             entries = [
                 {
                     key: value.isoformat() if isinstance(value, date) else value
@@ -72,9 +77,9 @@ class postgresDB():
             ask_query = """INSERT INTO ENTRIES(WEIGHT,DATE, CALORIE_INTAKE) VALUES ($1, $2, $3)"""
             try:
                 await con.execute(ask_query, entry.weight, entry.input_date, entry.calorie_intake)
-                logging.info("Create entry query executed")
+                logger.info("Create entry query executed correctly")
             except Exception as error:
-                logging.error(error)
+                logger.error(error)
         return f'Entry successfully added'
     
     async def delete_entry(self, date_to_delete : date):
@@ -85,9 +90,9 @@ class postgresDB():
                 delete_query = """DELETE FROM ENTRIES WHERE DATE = $1;"""
                 try:
                     await con.execute(delete_query, date_to_delete)
-                    logging.info("Delete query executed")
+                    logger.info("Delete query executed correctly")
                 except Exception as error:
-                    logging.error(error)
+                    logger.error(error)
                 return f'Entry successfully deleted'
             return f'Entry not found in database'
             
@@ -100,16 +105,16 @@ class postgresDB():
                     update_query = """UPDATE ENTRIES SET WEIGHT = $1 WHERE DATE = $2;"""
                     try:
                         await con.execute(update_query, entry_to_update.weight, entry_to_update.input_date)
-                        logging.info("Update query executed")
+                        logger.info("Update query executed correctly")
                     except Exception as error:
-                        logging.error(error)
+                        logger.error(error)
                 else:
                     update_query = """UPDATE ENTRIES SET CALORIE_INTAKE = $1 WHERE DATE = $2;"""
                     try:
                         await con.execute(update_query, entry_to_update.calorie_intake, entry_to_update.input_date)
-                        logging.info("Update query executed")
+                        logger.info("Update query executed correctly")
                     except Exception as error:
-                        logging.error(error)
+                        logger.error(error)
                 return f'Entry successfully updated'
             return f'Entry not found in database'
 
