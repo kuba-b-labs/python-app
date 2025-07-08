@@ -12,6 +12,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4 
       
+      - name: Get Next Version
+        id: semver
+        uses: ietf-tools/semver-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
+          tag_prefix: "v"
+
       - name: Log in to docker image
         run: |
           docker login -u ${{ secrets.docker_login }} -p ${{ secrets.docker_personal_access_token }}

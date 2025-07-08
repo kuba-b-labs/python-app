@@ -20,7 +20,7 @@ auth_router = APIRouter(prefix="/auth")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 crypt = CryptContext(schemes="argon2") #do it once for performance
 
-secret = getenv("secret")
+secret = getenv("SECRET")
 if not secret:
     raise ValueError("Secret value is missing")
 
