@@ -22,6 +22,12 @@ class Entry(BaseModel):
     calorie_intake: int | None = None
     input_date : date | None = None
 
+class User(BaseModel):
+    id : int
+    username: str
+    password_hash: str
+
+
 class postgresDB():
     """database commands execution"""
 
@@ -121,4 +127,32 @@ class postgresDB():
                         logger.error(error)
                 return f'Entry successfully updated'
             return f'Entry not found in database'
+
+    async def auth_insert(self, formdata: dict[str,any]):
+        """Insert User into DB USERS"""
+        async with self.pool.acquire() as con:
+            try:
+                    add_query = """INSERT INTO USERS(USERNAME,PASSWORD_HASH) VALUES($1,$2)"""
+                    logger.info("Inserting user into db table USERS")
+                    await con.execute(add_query,formdata['username'], formdata['password_hash'])
+                    logger.info("Insert done")
+            except Exception as error:
+                logger.error(error)
+
+    async def get_user(self, username: str):
+        """Check if User exists in db table"""
+        async with self.pool.acquire() as con:
+            try:
+                get_query = """SELECT ID,USERNAME,PASSWORD_HASH FROM USERS WHERE USERNAME = $1"""
+                db_data = await con.fetch(get_query,username)
+                user = {
+                    **db_data[0]
+                }
+                if db_data:
+                    logger.info("User found in db")
+                    return user
+                return False
+            except Exception as error:
+                logger.error(error)
+            
 
