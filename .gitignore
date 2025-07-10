@@ -207,3 +207,14 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+terraform/environments/dev/.terraform.lock.hcl
+terraform/environments/dev/.terraform.lock.hcl
+terraform/environments/dev/.terraform.lock.hcl
+terraform/environments/dev/.terraform/providers/registry.terraform.io/hashicorp/azurerm/4.1.0/windows_386/terraform-provider-azurerm_v4.1.0_x5.exe
+terraform/environments/dev/.terraform/providers/registry.terraform.io/hashicorp/azurerm/4.1.0/windows_386/terraform-provider-azurerm_v4.1.0_x5.exe
+terraform/environments/dev/.terraform.lock.hcl
+terraform/environments/dev/terraform.tfstate.backup
+terraform/environments/dev/terraform.tfstate
+terraform/environments/dev/terraform.tfvars
+terraform/environments/dev/terraform.tfvars
+terraform/environments/dev/terraform.tfvars
