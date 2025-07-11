@@ -25,7 +25,7 @@ jobs:
         uses: hashicorp/setup-terraform@v3
       
       - name: Initiate terraform
-        run:  terraform init -reconfigure
+        run:  terraform init -migrate-state
         working-directory: terraform
 
       - name: Format terraform files
