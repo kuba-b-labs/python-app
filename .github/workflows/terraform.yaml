@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - testing_terraform
     paths:
       - "terraform/**"
   pull_request:
@@ -53,7 +54,6 @@ jobs:
         env:
           sub_id: ${{ secrets.sub_id }}
           tenant_id: ${{ secrets.tenant_id }}
-        if: github.event_name == 'pull_request'
         run:  terraform plan -var-file="terraform.tfvars" -input=false -var="subscription_id=$sub_id" -var="tenant_id=$tenant_id"
         working-directory: terraform/environments/dev
 

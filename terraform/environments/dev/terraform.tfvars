@@ -19,7 +19,7 @@ sku             = "standard"
 
 
 
-vm_name = "linux_vm"
+vm_name = "linuxvm"
 admin_username = "test104"
 size = "B1s"
 
