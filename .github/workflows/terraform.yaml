@@ -35,6 +35,9 @@ jobs:
       - name: Validate terraform files
         run: terraform validate
         working-directory: terraform
+      
+      - name: Show folder structure
+        run: ls -R
 
       - name: Terraform plan
         env:
