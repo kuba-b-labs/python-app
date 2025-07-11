@@ -1,0 +1,42 @@
+name: Terraform test and deploy
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "terraform/**"
+  pull_request:
+    paths:
+      - "terraform/**"
+
+jobs:
+  terraform: #Name of the job
+    name: Terraform workflow
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name:  Set up terraform
+        uses: hashicorp/setup-terraform@v3
+      
+      - name: Initiate terraform
+        run:  terraform init
+        working-directory: terraform
+
+      - name: Format terraform files
+        run: terraform fmt -check -recursive
+        working-directory: terraform
+      
+      - name: Validate terraform files
+        run: terraform validate
+        working-directory: terraform
+
+      - name: Terraform plan
+        env:
+          sub_id: ${{ secrets.sub_id }}
+          tenant_id: ${{ secrets.tenant_id }}
+        run:  terraform plan -var-file="terraform.tfvars" -input=false -var="subscription_id=$sub_id" -var="tenant_id=$tenant_id"
+        working-directory: terraform/environment/dev
