@@ -21,7 +21,7 @@ sku             = "standard"
 
 vm_name = "linuxvm"
 admin_username = "test104"
-size = "B1s"
+size = "Standard_B2as_v2"
 
 #vnet
 nic_name = "nic1" 
