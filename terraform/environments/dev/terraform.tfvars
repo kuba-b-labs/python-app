@@ -1,20 +1,17 @@
 name     = "homelab"
 location = "Poland Central"
 tags = {
-  "location" = "Poland Central"
+  location   = "Poland Central"
+  production = "dev"
 }
-
-storage_name = "kubab104az"
-
 storage_accounts = {
   "sa1" = {
-    name                    = "kubab104az"
+    name = "kuba104b1"
   },
   "sa2" = {
-    name                    = "kubab104az1"
-
+    name = "kuba104b2"
   }
 }
 
+KV_name = "kv1jb104"
 sku = "standard"
-KV_name = "kv1-jb104"
