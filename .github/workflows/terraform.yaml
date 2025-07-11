@@ -46,12 +46,21 @@ jobs:
         run: terraform validate
         working-directory: terraform
       
-      - name: Show folder structure
-        run: ls -R
+      # - name: Show folder structure
+      #   run: ls -R
 
       - name: Terraform plan
         env:
           sub_id: ${{ secrets.sub_id }}
           tenant_id: ${{ secrets.tenant_id }}
+        if: github.event_name == 'pull_request'
         run:  terraform plan -var-file="terraform.tfvars" -input=false -var="subscription_id=$sub_id" -var="tenant_id=$tenant_id"
+        working-directory: terraform/environments/dev
+
+      - name: Terraform apply
+        env:
+          sub_id: ${{ secrets.sub_id }}
+          tenant_id: ${{ secrets.tenant_id }}
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run:  terraform apply -var-file="terraform.tfvars" -input=false -var="subscription_id=$sub_id" -var="tenant_id=$tenant_id" -auto-approve
         working-directory: terraform/environments/dev
