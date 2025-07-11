@@ -37,3 +37,26 @@ variable "sku" {
   description = "KV sku"
   type        = string
 }
+
+#VM
+variable "admin_username"{
+  type        = string
+  sensitive = true
+}
+variable "size" {
+    type = string
+}
+variable "vm_name" {
+    type = string
+}
+
+#Vnet
+variable "nic_name"{
+  type        = string
+}
+variable "subnet_name"{
+  type        = string
+}
+variable "vnet_name"{
+  type        = string
+}

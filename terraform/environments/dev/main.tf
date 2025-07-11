@@ -46,3 +46,27 @@ module "storage_account_test" {
     production = data.azurerm_key_vault_secret.secret1.value
   }
 }
+
+#VM
+module "linux_vm" {
+  
+  source              = "../../modules/virtual machines"
+  rg_name             = var.vm_name
+  admin_username = var.admin_username
+  location = module.resource_group.location
+  public_key = file("id_rsa.pub")
+  vm_name = var.vm_name
+  size = var.size
+  nic_id = module.vnet.network_interface_ids
+  depends_on = [ module.vnet ]
+}
+
+#vnet
+module "vnet" {
+  source = "../../modules/vnet"
+  location = module.resource_group.location
+  nic_name = var.nic_name
+  rg_name = module.resource_group.name
+  vnet_name = var.vnet_name
+  subnet_name = var.subnet_name
+}
