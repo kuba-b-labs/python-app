@@ -4,6 +4,7 @@ tags = {
   location   = "Poland Central"
   production = "dev"
 }
+storage_name = "test"
 storage_accounts = {
   "sa1" = {
     name = "kuba104b1"
