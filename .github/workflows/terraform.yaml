@@ -25,6 +25,9 @@ jobs:
         uses: hashicorp/setup-terraform@v3
       
       - name: Initiate terraform
+        env:
+          sub_id: ${{ secrets.sub_id }}
+          tenant_id: ${{ secrets.tenant_id }}
         run:  terraform init -migrate-state
         working-directory: terraform/environments/dev
 
