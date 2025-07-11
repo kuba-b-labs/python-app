@@ -44,4 +44,4 @@ jobs:
           sub_id: ${{ secrets.sub_id }}
           tenant_id: ${{ secrets.tenant_id }}
         run:  terraform plan -var-file="terraform.tfvars" -input=false -var="subscription_id=$sub_id" -var="tenant_id=$tenant_id"
-        working-directory: terraform/environment/dev
+        working-directory: terraform/environments/dev
