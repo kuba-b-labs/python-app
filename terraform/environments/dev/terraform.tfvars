@@ -18,4 +18,3 @@ storage_accounts = {
 
 sku = "standard"
 KV_name = "kv1-jb104"
-#test
