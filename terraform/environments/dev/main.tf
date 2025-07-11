@@ -51,7 +51,7 @@ module "storage_account_test" {
 module "linux_vm" {
   
   source              = "../../modules/virtual machines"
-  rg_name             = var.vm_name
+  rg_name             = module.resource_group.name
   admin_username = var.admin_username
   location = module.resource_group.location
   public_key = file("id_rsa.pub")
