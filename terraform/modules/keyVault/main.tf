@@ -7,4 +7,5 @@ resource "azurerm_key_vault" "azkv1" {
   soft_delete_retention_days  = 7
   purge_protection_enabled    = false
   sku_name = var.sku
+  enable_rbac_authorization = true
 }

@@ -7,17 +7,23 @@ terraform {
       version = "=4.1.0"
     }
   }
+  backend "azurerm" {
+    resource_group_name = "terraform"
+    storage_account_name = "terraformstatejb104"
+    container_name = "state"
+    key = "dev.terraform.tfstate"
+  }
 }
 
 # Configure the Microsoft Azure Provider
 provider "azurerm" {
   features {
-      key_vault {
+    key_vault {
       purge_soft_delete_on_destroy    = true
       recover_soft_deleted_key_vaults = false
     }
   }
   subscription_id = var.subscription_id
-  
+
   #...
 }

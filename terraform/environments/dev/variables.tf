@@ -16,24 +16,24 @@ variable "subscription_id" {
 }
 variable "storage_name" {
   description = "Storage Account Name"
-  type = string
+  type        = string
 }
 
 variable "storage_accounts" {
-  description = "Storage accounts list"   
+  description = "Storage accounts list"
   type = map(object({
     name = string
   }))
 }
-variable "KV_name"{
+variable "KV_name" {
   description = "KV's name"
-  type = string
+  type        = string
 }
-variable "tenant_id"{
+variable "tenant_id" {
   description = "Tenant ID"
   type        = string
 }
-variable "sku"{
-    description = "KV sku"
-    type = string
+variable "sku" {
+  description = "KV sku"
+  type        = string
 }
