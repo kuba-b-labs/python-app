@@ -27,7 +27,7 @@ jobs:
         working-directory: terraform
 
       - name: Format terraform files
-        run: terraform fmt -check -recursive
+        run: terraform fmt -check -recursive -diff
         working-directory: terraform
       
       - name: Validate terraform files
