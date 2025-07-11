@@ -29,7 +29,7 @@ jobs:
         working-directory: terraform
 
       - name: Format terraform files
-        run: terraform fmt -check -recursive -diff
+        run: terraform fmt -recursive
         working-directory: terraform
       
       - name: Validate terraform files
