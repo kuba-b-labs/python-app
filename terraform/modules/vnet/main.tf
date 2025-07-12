@@ -10,6 +10,7 @@ resource "azurerm_subnet" "subnet" {
   resource_group_name  = var.rg_name
   virtual_network_name = var.vnet_name
   address_prefixes     = ["10.0.2.0/24"]
+  depends_on = [ azurerm_virtual_network.vnet ]
 }
 
 resource "azurerm_network_interface" "nic" {
@@ -22,4 +23,5 @@ resource "azurerm_network_interface" "nic" {
     subnet_id                     = azurerm_subnet.subnet.id
     private_ip_address_allocation = "Dynamic"
   }
+  depends_on = [ azurerm_subnet.subnet ]
 }

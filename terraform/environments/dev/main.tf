@@ -27,25 +27,25 @@ module "keyVault" {
   tenant_id = var.tenant_id
 }
 
-data "azurerm_key_vault" "example" {
-  name                = module.keyVault.name
-  resource_group_name = module.resource_group.name
-}
+# data "azurerm_key_vault" "example" {
+#   name                = module.keyVault.name
+#   resource_group_name = module.resource_group.name
+# }
 
-data "azurerm_key_vault_secret" "secret1" {
-  name         = "test"
-  key_vault_id = data.azurerm_key_vault.example.id
-}
-module "storage_account_test" {
-  source   = "../../modules/storage_account"
-  name     = "test104jbaz"
-  rg_name  = "homelab"
-  location = module.resource_group.location
-  tags = {
-    location   = module.resource_group.location
-    production = data.azurerm_key_vault_secret.secret1.value
-  }
-}
+# data "azurerm_key_vault_secret" "secret1" {
+#   name         = "test"
+#   key_vault_id = data.azurerm_key_vault.example.id
+# }
+# module "storage_account_test" {
+#   source   = "../../modules/storage_account"
+#   name     = "test104jbaz"
+#   rg_name  = "homelab"
+#   location = module.resource_group.location
+#   tags = {
+#     location   = module.resource_group.location
+#     production = data.azurerm_key_vault_secret.secret1.value
+#   }
+# }
 
 #VM
 module "linux_vm" {
