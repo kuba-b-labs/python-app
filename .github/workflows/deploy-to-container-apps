@@ -1,0 +1,21 @@
+name: Deploy to container apps
+
+on:
+  push:
+    branches:
+      - cosmos-db-integration
+    paths:
+      - app/**
+
+
+jobs:
+  basic-docker-to-azure:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Build docker image
+        run: |
+          docker build -t fastapi:0.01 . 
