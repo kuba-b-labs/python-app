@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - "app/**"
+    branches:
+      - main
 
 jobs:
   Login-To-Docker-Container-Images:
