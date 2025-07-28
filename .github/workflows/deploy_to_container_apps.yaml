@@ -1,7 +1,11 @@
 name: Deploy to container apps
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - cosmos-db-integration
+    paths:
+      - app/**
 
 
 jobs:
