@@ -17,6 +17,16 @@ db_service_principal = CosmosClient(url, service_principal)
 db_service_principal_database = db_service_principal.get_database_client("test")
 db_service_principal_container = db_service_principal_database.get_container_client("test_container")
 
+entry = {
+    "id" : 1,
+    "values" : {
+        "value1" : 1,
+        "value2" : 2
+    }
+}
+
+db_service_principal_container.create_item(entry)
+
 # cosmos_db = CosmosClient(getenv("COSMOS_DB_URL"),getenv("COSMOS_DB_KEY"))
 
 # cosmos_db_database = cosmos_db.get_database_client("test_database")
