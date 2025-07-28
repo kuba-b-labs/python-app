@@ -2,8 +2,10 @@ name: Build docker image
 
 on:
   push:
-    paths:
-      - "app/**"
+    paths:      
+    - "app/**"
+    branches:
+    - main
 
 jobs:
   Login-To-Docker-Container-Images:
