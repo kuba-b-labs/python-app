@@ -23,3 +23,7 @@ jobs:
       - name: Login to Azure
         run: |
           az login --service-principal --username ${{ secrets.CLIENT_ID }} --password ${{ secrets.CLIENT_SECRET }} --tenant ${{ secrets.TENANT_ID }}
+
+      - name: test
+        run: |
+          ls -la
