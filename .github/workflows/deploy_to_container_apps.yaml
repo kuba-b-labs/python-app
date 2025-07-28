@@ -18,12 +18,16 @@ jobs:
         
       - name: Build docker image
         run: |
-          docker build -t fastapi:0.01 . 
+          docker build -t ${{ secrets.acr }}/fastapi:0.01 . 
       
       - name: Login to Azure
         run: |
           az login --service-principal --username ${{ secrets.CLIENT_ID }} --password ${{ secrets.CLIENT_SECRET }} --tenant ${{ secrets.TENANT_ID }}
 
-      - name: test
+      - name: Login to ACR
         run: |
-          ls -la
+          az acr login --name {{ secrets.acr }}
+      
+      - name: Push to Azure Container Registry
+        run: |
+          docker push ${{ secrets.acr }}/fastapi:0.01
