@@ -19,3 +19,7 @@ jobs:
       - name: Build docker image
         run: |
           docker build -t fastapi:0.01 . 
+      
+      - name: Login to Azure
+        run: |
+          az login --service-principal --username ${{ secrets.CLIENT_ID }} --password ${{ secrets.CLIENT_SECRET }} --tenant ${{ secrets.TENANT_ID }}
