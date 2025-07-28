@@ -14,6 +14,8 @@ service_principal = ClientSecretCredential(
 url = getenv("COSMOS_DB_URL")
 db_service_principal = CosmosClient(url, service_principal)
 
+db_service_principal_database = db_service_principal.get_database_client("test")
+db_service_principal_container = db_service_principal_database.get_container_client("test_container")
 
 # cosmos_db = CosmosClient(getenv("COSMOS_DB_URL"),getenv("COSMOS_DB_KEY"))
 
