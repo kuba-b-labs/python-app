@@ -31,14 +31,6 @@ jobs:
       - name: Push to Azure Container Registry
         run: |
           docker push ${{ secrets.acr }}/fastapi:0.01
-  
-  deploy-to-container-instances:
-    runs-on: ubuntu-latest  
-    
-    steps:
-      - name: Login to azure container registry
-        run: |
-          az login --service-principal --username ${{ secrets.CLIENT_ID }} --password ${{ secrets.CLIENT_SECRET }} --tenant ${{ secrets.TENANT_ID }} | az acr login --name ${{ secrets.acr }}
 
       - name: Deploy Container Instance
         run: |
