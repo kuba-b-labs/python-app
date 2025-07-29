@@ -9,7 +9,7 @@ on:
 
 
 jobs:
-  basic-docker-to-azure:
+  basic-docker-to-azure-container-registry:
     runs-on: ubuntu-latest
 
     steps:
@@ -31,3 +31,23 @@ jobs:
       - name: Push to Azure Container Registry
         run: |
           docker push ${{ secrets.acr }}/fastapi:0.01
+  
+  deploy-to-container-instances:
+    runs-on: ubuntu-latest  
+    
+    steps:
+      - name: Login to azure container registry
+        run: |
+          az login --service-principal --username ${{ secrets.CLIENT_ID }} --password ${{ secrets.CLIENT_SECRET }} --tenant ${{ secrets.TENANT_ID }} | az acr login --name ${{ secrets.acr }}
+
+      - name: Deploy Container Instance
+        run: |
+          az container create \
+          --resource-group cosmos-db \
+          --acr-identity ${{ secrets.acr }}
+          --location Poland-Central
+          --name test-container
+          --image ${{ secrets.acr }}/fastapi:0.01
+          --os-type Linux
+          --cpu 1
+          --memory 1.5
