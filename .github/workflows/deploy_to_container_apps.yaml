@@ -35,7 +35,7 @@ jobs:
       - name: Deploy Container Instance
         run: |
           az container create \
-          --resource-group cosmos-db \
+          --resource-group cosmo-db \
           --acr-identity ${{ secrets.acr }}
           --location Poland-Central
           --name test-container
