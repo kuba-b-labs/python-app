@@ -41,4 +41,5 @@ jobs:
           --image ${{ secrets.acr }}/fastapi:0.01 \
           --os-type Linux \
           --cpu 1 \
-          --memory 1.5 
+          --memory 1.5 \
+          --assign-identity /subscriptions/fc40c352-efc4-428a-af5d-d820476f6bea/resourcegroups/cosmo-db/providers/Microsoft.ManagedIdentity/userAssignedIdentities/containers
