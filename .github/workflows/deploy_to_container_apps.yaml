@@ -36,8 +36,8 @@ jobs:
         run: |
           az container create \
           --name test-container \
-          --resource-group cosmo-db \ 
-          --location Poland-Central \
+          --resource-group cosmo-db \
+          --location PolandCentral \
           --image ${{ secrets.acr }}/fastapi:0.01 \
           --os-type Linux \
           --cpu 1 \
